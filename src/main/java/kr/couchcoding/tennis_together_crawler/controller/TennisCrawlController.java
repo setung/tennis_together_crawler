@@ -1,7 +1,7 @@
 package kr.couchcoding.tennis_together_crawler.controller;
 
 import kr.couchcoding.tennis_together_crawler.CourtRepository;
-import kr.couchcoding.tennis_together_crawler.crawler.Court;
+import kr.couchcoding.tennis_together_crawler.crawler.CourtInfo;
 import kr.couchcoding.tennis_together_crawler.crawler.gotennis.GoTennisCourt;
 import kr.couchcoding.tennis_together_crawler.crawler.gotennis.GoTennisCrawler;
 import kr.couchcoding.tennis_together_crawler.crawler.seoultennis.SeoulTennisCourt;
@@ -27,7 +27,7 @@ public class TennisCrawlController {
         Map<String, SeoulTennisCourt> crawling = seoulTennisCrawler.crawling();
         for (String key : crawling.keySet()) {
             SeoulTennisCourt seoulTennisCourt = crawling.get(key);
-            repository.save(new Court(seoulTennisCourt));
+            repository.save(new CourtInfo(seoulTennisCourt));
         }
     }
 
@@ -36,7 +36,7 @@ public class TennisCrawlController {
         Map<String, GoTennisCourt> crawling = goTennisCrawler.crawling();
         for (String key : crawling.keySet()) {
             GoTennisCourt goTennisCourt = crawling.get(key);
-            repository.save(new Court(goTennisCourt));
+            repository.save(new CourtInfo(goTennisCourt));
         }
     }
 }

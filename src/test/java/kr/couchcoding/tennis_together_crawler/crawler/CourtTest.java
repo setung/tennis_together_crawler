@@ -32,7 +32,7 @@ class CourtTest {
         Map<String, SeoulTennisCourt> seoulTennis = seoulTennisCrawler.crawling();
 
         for (String key : seoulTennis.keySet()) {
-            Court court = new Court(seoulTennis.get(key));
+            CourtInfo court = new CourtInfo(seoulTennis.get(key));
             em.persist(court);
         }
     }
@@ -42,7 +42,7 @@ class CourtTest {
         Map<String, GoTennisCourt> goTennis = goTennisCrawler.crawling();
 
         for (String key : goTennis.keySet()) {
-            Court court = new Court(goTennis.get(key));
+            CourtInfo court = new CourtInfo(goTennis.get(key));
             em.persist(court);
         }
     }

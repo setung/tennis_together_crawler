@@ -2,52 +2,46 @@ package kr.couchcoding.tennis_together_crawler.crawler;
 
 import kr.couchcoding.tennis_together_crawler.crawler.gotennis.GoTennisCourt;
 import kr.couchcoding.tennis_together_crawler.crawler.seoultennis.SeoulTennisCourt;
-import kr.couchcoding.tennis_together_crawler.geocoding.Geocoding;
 import kr.couchcoding.tennis_together_crawler.geocoding.LatLonData;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.Lob;
+import java.time.LocalDateTime;
 
-@Getter
-@ToString
 @Entity
-public class Court {
+public class CourtInfo {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long courtNo;
     private String name;
-    private String loc_sd;
-    private String loc_skk;
-    private String road_addr;
-    private String court_contact;
+    private String roadAddr;
     private String fee;
-    private double lat;
-    private double lon;
-    private String org_url;
-    private String adt_info;
+    private String orgUrl;
+    private Double lat;
+    private Double lon;
     private String time;
+    private String courtContact;
+    @Lob
+    private String adtInfo;
+    private LocalDateTime fstRegDtm;
+    private LocalDateTime lstUpdDtm;
+    private String locSd;
+    private String locSkk;
 
-    public Court(GoTennisCourt goTennisCourt) {
-
+    public CourtInfo(GoTennisCourt goTennisCourt) {
         if (goTennisCourt.getAddress() != null) {
             String[] splitAddress = goTennisCourt.getAddress().split(" ");
-            loc_sd = splitAddress[0];
-            loc_skk = splitAddress[1];
+            locSd = splitAddress[0];
+            locSkk = splitAddress[1];
         }
         name = goTennisCourt.getTitle();
-        road_addr = goTennisCourt.getAddress();
-        org_url = goTennisCourt.getUrl();
-        court_contact = goTennisCourt.getTel();
-        adt_info = goTennisCourt.getInstructions();
+        roadAddr = goTennisCourt.getAddress();
+        orgUrl = goTennisCourt.getUrl();
+        courtContact = goTennisCourt.getTel();
+        adtInfo = goTennisCourt.getInstructions();
         fee = getGoTennisCourtFee(goTennisCourt.getFee_out(), goTennisCourt.getFee_in());
         time = getGoTennisCourtTime(goTennisCourt.getOperatingTime_in(), goTennisCourt.getOperatingTime_out());
         lat = goTennisCourt.getLat();
@@ -76,18 +70,18 @@ public class Court {
         return fee;
     }
 
-    public Court(SeoulTennisCourt seoulTennisCourt) {
+    public CourtInfo(SeoulTennisCourt seoulTennisCourt) {
         if (seoulTennisCourt.getAddress() != null) {
             String[] splitAddress = seoulTennisCourt.getAddress().split(" ");
-            loc_sd = splitAddress[0];
-            loc_skk = splitAddress[1];
+            locSd = splitAddress[0];
+            locSkk = splitAddress[1];
         }
         name = seoulTennisCourt.getName();
         fee = seoulTennisCourt.getFee();
-        road_addr = seoulTennisCourt.getAddress();
-        org_url = seoulTennisCourt.getUrl();
-        court_contact = seoulTennisCourt.getTel();
-        adt_info = seoulTennisCourt.getInstructions();
+        roadAddr = seoulTennisCourt.getAddress();
+        orgUrl = seoulTennisCourt.getUrl();
+        courtContact = seoulTennisCourt.getTel();
+        adtInfo = seoulTennisCourt.getInstructions();
         lat = seoulTennisCourt.getLat();
         lon = seoulTennisCourt.getLon();
     }
@@ -96,4 +90,14 @@ public class Court {
         lat = latLon.getLat();
         lon = latLon.getLon();
     }
+
+    /*
+    보류
+    @ManyToOne
+    @JoinColumn(name = "loc_sd")
+    private LocCd locSd;
+    @ManyToOne
+    @JoinColumn(name = "loc_skk")
+    private LocCd locSkk;*/
+
 }
