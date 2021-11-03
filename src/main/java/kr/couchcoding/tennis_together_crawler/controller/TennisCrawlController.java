@@ -1,6 +1,6 @@
 package kr.couchcoding.tennis_together_crawler.controller;
 
-import kr.couchcoding.tennis_together_crawler.CourtRepository;
+import kr.couchcoding.tennis_together_crawler.repository.CourtRepository;
 import kr.couchcoding.tennis_together_crawler.crawler.CourtInfo;
 import kr.couchcoding.tennis_together_crawler.crawler.gotennis.GoTennisCourt;
 import kr.couchcoding.tennis_together_crawler.crawler.gotennis.GoTennisCrawler;

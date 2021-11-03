@@ -1,5 +1,6 @@
 package kr.couchcoding.tennis_together_crawler.crawler.gotennis;
 
+import kr.couchcoding.tennis_together_crawler.crawler.LocCd;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,4 +21,5 @@ public class GoTennisCourt {
     private String url;
     private double lat;
     private double lon;
+    private LocCd locCd;
 }

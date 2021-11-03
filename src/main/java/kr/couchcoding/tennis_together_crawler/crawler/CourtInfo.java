@@ -2,7 +2,6 @@ package kr.couchcoding.tennis_together_crawler.crawler;
 
 import kr.couchcoding.tennis_together_crawler.crawler.gotennis.GoTennisCourt;
 import kr.couchcoding.tennis_together_crawler.crawler.seoultennis.SeoulTennisCourt;
-import kr.couchcoding.tennis_together_crawler.geocoding.LatLonData;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -67,6 +66,7 @@ public class CourtInfo {
         operateTime = getGoTennisCourtTime(goTennisCourt.getOperatingTime_in(), goTennisCourt.getOperatingTime_out());
         lat = goTennisCourt.getLat();
         lon = goTennisCourt.getLon();
+        locCd = goTennisCourt.getLocCd();
     }
 
     private String getGoTennisCourtTime(String operatingTime_in, String operatingTime_out) {
@@ -100,11 +100,6 @@ public class CourtInfo {
         adtInfo = seoulTennisCourt.getInstructions();
         lat = seoulTennisCourt.getLat();
         lon = seoulTennisCourt.getLon();
+        locCd = seoulTennisCourt.getLocCd();
     }
-
-    private void setLatLon(LatLonData latLon) {
-        lat = latLon.getLat();
-        lon = latLon.getLon();
-    }
-
 }

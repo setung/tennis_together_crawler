@@ -1,7 +1,10 @@
 package kr.couchcoding.tennis_together_crawler.crawler.seoultennis;
 
+import kr.couchcoding.tennis_together_crawler.crawler.LocCd;
 import kr.couchcoding.tennis_together_crawler.geocoding.Geocoding;
 import kr.couchcoding.tennis_together_crawler.geocoding.LatLonData;
+import kr.couchcoding.tennis_together_crawler.repository.LocCdRepository;
+import kr.couchcoding.tennis_together_crawler.service.LocCdService;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,7 +23,9 @@ public final class SeoulTennisCrawler {
 
     private static final String BASE_URL = "https://yeyak.seoul.go.kr/web/search/selectPageListDetailSearchImg.do?&code=T100&dCode=T108&currentPage=";
     private static final String DETAIL_URL = "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=";
+
     private final Geocoding geocoding;
+    private final LocCdService locCdService;
 
     public Map<String, SeoulTennisCourt> crawling() {
         List<String> detailUrls = getCourtDetailUrls();
@@ -62,6 +67,8 @@ public final class SeoulTennisCrawler {
                 LatLonData latLon = geocoding.getLatLon(court.getAddress());
                 court.setLat(latLon.getLat());
                 court.setLon(latLon.getLon());
+
+                court.setLocCd(locCdService.getLocCd(address));
             }
 
         } catch (Exception e) {

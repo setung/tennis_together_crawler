@@ -1,12 +1,16 @@
 package kr.couchcoding.tennis_together_crawler.crawler.gotennis;
 
+import kr.couchcoding.tennis_together_crawler.crawler.LocCd;
 import kr.couchcoding.tennis_together_crawler.geocoding.Geocoding;
 import kr.couchcoding.tennis_together_crawler.geocoding.LatLonData;
+import kr.couchcoding.tennis_together_crawler.repository.LocCdRepository;
+import kr.couchcoding.tennis_together_crawler.service.LocCdService;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,6 +25,7 @@ public final class GoTennisCrawler {
     private static final String BASIC_URL = "http://gotennis.kr/category/seoul,gyeonggi,incheon,gangwon,chungnam,busan,ulsan,daegu,gyeongbuk,uncategorized,youtube_skykim/?tag=indoor-court-aturf,indoor-lesson,indoor-court,indoor-lesson-hard,indoor-court-hard,outdoor-court-aturf,outdoor-court-clay,outdoor-court,outdoor-court-hard";
 
     private final Geocoding geocoding;
+    private final LocCdService locCdService;
 
     public Map<String, GoTennisCourt> crawling() {
         List<String> detailUrls = getCourtDetailUrls();
@@ -70,6 +75,8 @@ public final class GoTennisCrawler {
                     LatLonData latLon = geocoding.getLatLon(court.getAddress());
                     court.setLat(latLon.getLat());
                     court.setLon(latLon.getLon());
+
+                    court.setLocCd(locCdService.getLocCd(court.getAddress()));
                 }
             }
         } catch (Exception e) {
@@ -95,6 +102,5 @@ public final class GoTennisCrawler {
 
         return detailUrls;
     }
-
 }
 

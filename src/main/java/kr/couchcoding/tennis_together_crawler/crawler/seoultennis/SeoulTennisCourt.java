@@ -1,5 +1,6 @@
 package kr.couchcoding.tennis_together_crawler.crawler.seoultennis;
 
+import kr.couchcoding.tennis_together_crawler.crawler.LocCd;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,4 +19,5 @@ public class SeoulTennisCourt {
     private String url;
     private double lat;
     private double lon;
+    private LocCd locCd;
 }

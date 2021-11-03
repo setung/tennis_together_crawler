@@ -4,6 +4,7 @@ import kr.couchcoding.tennis_together_crawler.crawler.gotennis.GoTennisCourt;
 import kr.couchcoding.tennis_together_crawler.crawler.gotennis.GoTennisCrawler;
 import kr.couchcoding.tennis_together_crawler.crawler.seoultennis.SeoulTennisCourt;
 import kr.couchcoding.tennis_together_crawler.crawler.seoultennis.SeoulTennisCrawler;
+import kr.couchcoding.tennis_together_crawler.repository.LocCdRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -46,5 +47,4 @@ class CourtTest {
             em.persist(court);
         }
     }
-
 }
