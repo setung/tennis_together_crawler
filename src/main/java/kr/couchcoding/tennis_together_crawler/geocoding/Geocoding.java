@@ -38,7 +38,7 @@ public class Geocoding {
         GeoData.Address[] addresses = geoData.getAddresses();
 
         if (addresses.length != 0) {
-            return new LatLonData(addresses[0].getX(), addresses[0].getY());
+            return new LatLonData(addresses[0].getY(), addresses[0].getX());
         }
         return new LatLonData(0, 0);
     }
